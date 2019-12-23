@@ -1,0 +1,15 @@
+model { 
+for (i in 1:N){
+	mu[i] <- beta0 + inprod(X[i,], beta)
+	Y[i] ~ dnorm(mu[i],prec) # usual probit regression model 
+} 
+beta0 ~ dnorm(0, 1/2500)
+a1 ~ dexp(10) 
+a2 ~ dexp(10)
+prec ~ dgamma(2,10)
+	for (j in 1:p) 
+	{	
+	tau[j] ~ dgamma(0.5, (pow(a1,2)) / (8*a2) ) T(1, )##  // truncated distribution!!! (see the manual)	
+	beta[j] ~ dnorm(0, 1/((tau[j]-1)/(tau[j]*a2)))
+}
+}
