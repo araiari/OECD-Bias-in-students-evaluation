@@ -8,5 +8,4 @@ L'analisi è stata effettuata rimuovendo le righe con dati mancanti,
 in quanto le informazioni presenti non sono state ritenute sufficienti per imputare i dati mancanti in modo soddisfacente.
 
 
-La cartella elastic_net contiene l'analisi finalizzata alla selezione delle covariate relative agli studenti tramite elastic net.
-La cartella EN_hierachical contiene l'analisi finalizzata alla selezione delle covariate relative agli scuola tramite elastic net.
+La cartella modello_lineare contiene l'analisi finalizzata alla selezione delle covariate relative agli studenti
