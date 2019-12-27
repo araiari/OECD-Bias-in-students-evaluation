@@ -6,6 +6,7 @@ Data la numerosità delle covariate presenti (più di 1000) si è prima procedut
 L'analisi vera e propria scremerà ulteriormente le covariate.
 L'analisi è stata effettuata rimuovendo le righe con dati mancanti,
 in quanto le informazioni presenti non sono state ritenute sufficienti per imputare i dati mancanti in modo soddisfacente.
+Ogni analisi è stata trattata con un approccio bayesiano.
 
 
 La cartella dataset contiene i diversi dataset utilizzati.
