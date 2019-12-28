@@ -5,8 +5,10 @@
 # Oltre alle covariate selezionate dal modello lineare (vedi cartella modello_lineare), sono inserite delle 
 # covariate relative alla scuola di appartenenza. 
 
-# Si è innanzitutto verificato se, utilizzando un modello a effetti misti, la capacità predittiva di esso migliorasse. 
-# I risultati di questo studio sono contenuti nella cartella Confronto_LM_LMM.
+# Nei file della cartella Confonto_LM_LMM si è verificato se il modello a effetti misti avesse la capacità predittiva
+# maggiore del semplice modello lineare. 
 
 # Le covariate relative alla scuola più significative sono selezionate con il metodo dell'Elastic Net. 
 # La cartella Elastic_net contiene tutti i file relativi a questa covariate selection.
+
+
