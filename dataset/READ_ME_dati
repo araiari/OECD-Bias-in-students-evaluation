@@ -1,0 +1,8 @@
+# READ ME
+
+# In questa cartella sono contenuti i dataset utilizzati nei vari script.
+
+# dati_reg contiene i dati utilizzati per fittare il modello lineare per gli studenti. 
+# Contiene le informazioni base degli studenti (sesso, età, ...), informazioni sulle loro abitudini e sul loro stato economico-sociale.
+# Sono state eliminate tutte le righe che contenevano almeno un missing value.
+
