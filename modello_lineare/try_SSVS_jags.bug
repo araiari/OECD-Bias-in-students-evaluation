@@ -1,0 +1,32 @@
+#############################################################  
+# STOCHASTIC SEARCH VARIABLE SELECTION: pv5math REGRESSION ###
+#############################################################
+
+model {
+	
+#likelihood 
+	for (i in 1:N){
+		mu[i] <- inprod(X[i,], beta)
+		Y[i] ~ dnorm(mu[i], t_Y) #va passata inv(var)=precision
+	} 
+
+# misura per HPD
+	for (j in 1:p){
+		TempIndicator[j] <- gamma[j] * pow(2, j) 
+	}
+	mdl<- 1 + sum(TempIndicator[]) # model index in binary coding 
+
+
+# priors
+	c1 <- 1 / (pow(tau, 2)) #reciprocal of the spike variance (precision)
+	c2 <- c1 / (pow(c, 2)) # reciprocal of the slab variance 
+
+	for(j in 1:p){
+
+		tprior[j] <- equals(gamma[j],0)*c1 + equals(gamma[j],1)*c2 
+		beta[j] ~ dnorm(0,tprior[j]) 
+		gamma[j] ~ dbern(theta)
+	}
+
+	t_Y ~ dgamma(2., 5.)
+}
