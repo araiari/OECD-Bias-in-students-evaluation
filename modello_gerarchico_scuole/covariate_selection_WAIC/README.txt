@@ -1,4 +1,3 @@
-# in questa cartella:
 
 Nel file covariate_selection_con_WAIC.R sono fittati diversi modelli lineari a effetti misti con le covariate dello studente
 (precedentemente selezionate, vedi cartella modello_lineare) e con una sola covariata relativa alla scuola.
