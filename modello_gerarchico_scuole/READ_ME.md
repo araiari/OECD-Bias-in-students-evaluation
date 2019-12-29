@@ -1,5 +1,3 @@
-# in questa cartella
-
 Questa cartella contiene tutti gli script relativi al modello lineare a effetti misti per il voto degli studenti raggruppati
 in base alla scuola frequentata. 
 Oltre alle covariate selezionate dal modello lineare (vedi cartella modello_lineare), sono inserite delle 
