@@ -1,0 +1,54 @@
+# Model:
+# Y_ij = theta0 + theta_1j + theta_2j * Z_j + gamma_j * X_i + eps_ij
+
+# Y_ij ~ Norm (theta0 + theta_1j + theta_2j * Z_j + gamma_j * X_i, tau2) i=1,...,N j=1,...,ngr
+# tau2 ~ Gamma(2,10)
+# theta0 ~ Norm (0, tau2_theta0); tau2_theta0 ~ Gamma(2,50)
+# theta_1j ~ Norm (0, tau2_theta_1j); tau2_theta_1j ~ Gamma(2,50) j=1,...,ngr
+# theta_2j ~ Norm (0, tau2_theta_2j); tau2_theta_2j ~ Gamma(2,50) j=1,...,ngr
+# gamma_jk ~ Norm (0, tau2_gamma_jk); tau2_gamma_jk ~ Gamma(2,50) j=1,...,ngr k=1,...,p
+
+# Legend of symbols:
+# N = total number of data
+# p = number of covariates of random effect
+# ngr = number of groups
+# gr = vector whose elements allocate the data to a group
+# Y = vector of response (pv5math)
+# X = matrix of covariates about students
+# Z = vector of the selected covariate about school
+# gamma = param. of random effects (matrix p*ngr)
+# theta = param. of random effects (matrix 2*ngr)
+# theta0 = intercept of fixed effect
+
+model{
+
+	# likelihood e log_likelihood per waic
+	for (i in 1:N){
+ 		mu[i] <- theta0 + theta[1, gr[i]] + inprod(theta[2, gr[i]],Z[i]) + inprod(X[i,], gamma[,gr[i]]) 
+		Y[i] ~ dnorm ( mu[i], tau2 )
+		lik[i] <- dnorm( Y[i], mu[i], tau2 )
+	}
+
+	# priors
+	tau2 ~ dgamma(2, 10)
+	
+	tau2_theta0 ~ dgamma(2,50)
+	theta0 ~ dnorm(0, tau2_theta0)
+		
+	for (j in 1:ngr){
+		theta[1,j] ~ dnorm(0, tau2_theta[1,j])
+		theta[2,j] ~ dnorm(0, tau2_theta[2,j])
+		tau2_theta[1,j] ~ dgamma(2, 50)
+		tau2_theta[2,j] ~ dgamma(2, 50)
+
+		for (i in 1:p){
+			gamma[i,j] ~ dnorm(0, tau2_gamma[i,j])
+			tau2_gamma[i,j] ~ dgamma (2,50)
+		}
+	}
+
+
+}
+
+
+
