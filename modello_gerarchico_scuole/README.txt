@@ -8,5 +8,5 @@ maggiore del semplice modello lineare.
 
 Le covariate relative alla scuola più significative sono selezionate con il metodo dell'Elastic Net. 
 La cartella Elastic_net contiene tutti i file relativi a questa covariate selection.
-
+La cartella Lasso contiene tutti i file relativi a questa covariate selection.
 
