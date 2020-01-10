@@ -1,0 +1,17 @@
+# READ ME
+
+
+# DATASET
+# dati_grezzi.csv contiene il dataset di partenza, in cui ogni osservazione è uno studente.
+
+# dati_clustering_all.csv contiene come osservazioni le scuole (di cui vogliamo fare clustering) con le covariate
+# ad esse associate e l'aggiunta dei voti medi per scuola, che sono stati prodotti con l'approccio MCMC Bayesiano.
+# con questo approccio si potrebbero ottenere in futuro anche le medie per scuola delle altre covariate riguardanti gli studenti.
+
+
+# SCRIPT
+# medie_a_posteriori_voti.R contiene la procedura MCMC per determinare il valore atteso dei voti per ogni scuola.
+# Seguono grafici e commenti sull'effetto di shrinkage e gli intervalli di credibilità dei valori attesi.
+
+# clustering_trial1.R contiene un primo modello mixture multivariato basato sul Dirichlet Process, sia con slice sampler,
+# sia marginalmente. Seguono commenti sul risultato e sulla scelta degli iperparametri.
