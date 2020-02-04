@@ -1,0 +1,37 @@
+model { 
+
+# variabile risposta
+for (i in 1:N){
+	#j = g[i] 
+		#il vettore g mi dice a quale scuola appartiene lo studente i (valori ammissibili di g[1] sono 1:M)
+	mu[i] =theta0+gamma0[ g[i] ] + inprod(X[i,], theta)+ inprod(Z[i,], gamma[g[i],])  
+		##X[i] è il vettore di covariate relative alla scuola, Z[i] è relativo allo studente 
+	Y[i] ~ dnorm(mu[i], tau2 )
+} 
+
+# aggiornamento dei parametri
+tau2 ~ dgamma(2, 10)
+	tau2_theta0 ~ dexp(100)
+	theta0 ~ dnorm(0, tau2_theta0+0.5)
+
+
+for(j in 1:M){
+	tau2_gamma0[j] ~ dgamma(2,50)
+	gamma0[j] ~ dnorm(0, tau2_gamma0[j])
+}
+
+
+for ( i in 1:v){
+	
+	for(j in 1:M){
+		tau2_gamma[j,i] ~ dgamma (2,50)
+		gamma[j,i] ~ dnorm(0, tau2_gamma[j,i])
+	}
+}
+
+
+for (j in 1:p) 	{	
+	tau2_theta[j] ~ dexp(100)
+	theta[j] ~ dnorm(0, tau2_theta[j]+0.5)
+}
+}
