@@ -10,5 +10,6 @@ Ogni analisi è stata trattata con un approccio bayesiano.
 
 
 La cartella dataset contiene i diversi dataset utilizzati.
+
 Per i modelli lineari guardare solo la cartella modelli_finali, il resto sono codici/risultati vecchi.
 Al suo interno è presente l'analisi del modello univariato (risposta: voto_matematica) e del modello bivariato (risposta: voto_matematica, voto_reading). Ogni sottocartella contiene un file read.me che descrive il contenuto della cartella stessa.
