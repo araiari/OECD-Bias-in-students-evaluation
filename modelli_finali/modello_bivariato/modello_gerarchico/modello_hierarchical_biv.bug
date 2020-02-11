@@ -1,0 +1,39 @@
+model{
+	for(i in 1:N){   ## regression model for y
+		mu[i,1] =gamma0[ g[i],1 ] + inprod(X[i,], beta1)+ inprod(Z[i,], gamma1[g[i],]) 
+		mu[i,2] =gamma0[ g[i],2 ] + inprod(X[i,], beta2)+ inprod(Z[i,], gamma2[g[i],]) 
+	      
+	      Y[i,1:2] ~ dmnorm(mu[i,1:2],S)    
+	}
+
+tau2_gamma0 ~ dgamma(2,50)
+for(j in 1:M){
+	gamma0[j,1:2] ~ dmnorm(cinc2, (tau2_gamma0)*Id)
+}
+for ( i in 1:v){
+	
+		tau2_gamma1[i] ~ dgamma (2,50)
+		tau2_gamma2[i] ~ dgamma (2,50)
+	for(j in 1:M){
+		gamma1[j,i] ~ dnorm(0, tau2_gamma1[i])  
+		gamma2[j,i] ~ dnorm(0, tau2_gamma2[i])
+	}
+}	
+	tau2_theta1 ~ dexp(100)
+	tau2_theta2 ~ dexp(100)
+	beta1 ~ dmnorm(zerop, (tau2_theta1+0.5)*Idp)
+	beta2 ~ dmnorm(zerop, (tau2_theta2+0.5)*Idp)
+	
+	
+ 	sigma1 ~ dgamma(2, 10)       ## residual std dev prima era unif(0,5)
+	sigma2 ~ dgamma(2, 10)
+	rho  ~ dunif(-1,1)
+	det=((pow(sigma1 ,2))*(pow(sigma2 ,2)))-(sigma1*sigma2*rho*sigma1*sigma2*rho)
+	S[1,1]=(pow(sigma2 ,2))/det
+	S[2,2]=(pow(sigma1 ,2))/det
+	S[1,2]=-sigma1*sigma2*rho/det
+	S[2,1]=-sigma1*sigma2*rho/det
+
+	 
+}
+

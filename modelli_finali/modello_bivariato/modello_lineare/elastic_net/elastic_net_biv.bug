@@ -1,0 +1,29 @@
+model{
+	for(i in 1:N){   ## regression model for y
+
+	      mu[i,1] <- beta0[1] + inprod(X[i,], beta[,1])
+		mu[i,2] <- beta0[2] + inprod(X[i,], beta[,2]) 
+	      Y[i,1:2] ~ dmnorm(mu[i,1:2],S)    
+	} 
+	beta0 ~ dmnorm(zero2, 1/25000*Id)
+a1 ~ dexp(0.1) 
+a2 ~ dexp(0.1)
+aa1=a1+0.5
+aa2=a2+0.5
+	for (j in 1:p) 
+	{	
+		tau[j] ~ dgamma(0.5, (pow(aa1,2)) / (8*aa2) ) T(1, )
+		 beta[j,1:2] ~ dmnorm(zero2, (1/((tau[j]-1)/(tau[j]*aa2)))*Id)
+	}
+	
+ 	sigma1 ~ dunif(0,100)       ## residual std dev
+	sigma2 ~ dunif(0,100)
+	#rho  ~ dunif(-1,1)
+	#S=Id
+	det=((pow(sigma1 ,2))*(pow(sigma1 ,2)))
+	S[1,1]=(pow(sigma2 ,2))/det
+	S[2,2]=(pow(sigma1 ,2))/det
+	S[1,2]=0
+	S[2,1]=0
+}
+
