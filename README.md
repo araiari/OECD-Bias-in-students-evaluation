@@ -10,7 +10,5 @@ Ogni analisi è stata trattata con un approccio bayesiano.
 
 
 La cartella dataset contiene i diversi dataset utilizzati.
-La cartella modello_lineare contiene l'analisi finalizzata alla selezione delle covariate relative agli studenti.
-La cartella modello_gerarchico contiene l'analisi finalizzata alla selezione delle covariate relative alla scuola.
-
-Le cartelle modello_univariato e modello_bivariato contengono l'analisi effettuata seguendo un approccio diverso (seppur simile) per risolvere i problemi riscontrati in precedenza.
+Per i modelli lineari guardare solo la cartella modelli_finali, il resto sono codici/risultati vecchi.
+Al suo interno è presente l'analisi del modello univariato (risposta: voto_matematica) e del modello bivariato (risposta: voto_matematica, voto_reading). Ogni sottocartella contiene un file read.me che descrive il contenuto della cartella stessa.
