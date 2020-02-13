@@ -1,3 +1,6 @@
+# ELASTIC NET FINALIZZATA AD ESCLUDERE ALCUNE COVARIATE STUDENTE
+
+
 library(rstan)
 library(rjags)
 library(coda)
@@ -13,8 +16,6 @@ require(ggpubr)
 set.seed(49)
 dati=read.csv('dati_reg.csv', header=T)
 N=dim(dati)[1]
-#N=500
-#dati=dati[sample(1:dim(dati)[1],N),] #per ora consideriamo solo 5000 dati
 Y=as.vector(dati[,27]) #controllare quale colonna è la risposta
 XX=(dati[,-c(1,27)]) #togiere la risposta e pv5lang, read, togliere le scjole
 XX=as.matrix(XX)
@@ -57,8 +58,7 @@ output <- coda.samples(model = model,
                        n.iter = nit,
                        thin = thin)
 save.image(file='risultato_EN.Rdata')
-#save(output,file='EN_jags1_a_normal.dat') 
-#load('EN_jags1_a_normal.dat')
+
 x11()
 plot(output,ask=T)
 dev.off()
