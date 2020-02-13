@@ -1,0 +1,63 @@
+# MODEL
+
+model{
+	# Precision Parameter	
+	#alpha ~ <- 1;
+        a ~ dexp(1) ;
+	alpha <- a + 0.5 ;   #Exp con supporto (0.5, +infinity) (per problemi numerici)
+
+	# Constructive DP
+	pp[1] <- r[1];
+	for (j in 2:M) {
+		pp[j] <- r[j] * (1 - r[j - 1]) * pp[j -1 ] / r[j - 1]; # pesi della serie
+	}
+	p.sum <- sum(pp[]);	
+
+	for (j in 1:M){    
+		theta[j] ~ dnorm(mu.bb,tau.bb);   # locations della serie
+            r[j] ~ dbeta(1, alpha);		
+	# scaling to ensure sum to 1 
+		pi[j] <- pp[j] / p.sum ;		
+	}
+
+
+	mu.bb <- 0 ;    # media della baseline P_0
+	tau.bb <- pow(lambda.bb,-2);   # precisione  della baseline P_0
+	lambda.bb ~ dunif(0,30);           # dev std
+	
+	for(i in 1:J){    
+		S[i] ~ dcat(pi[]);         # campiono dalla discreta
+		bb[i] <- theta[S[i]];  # locations associate al peso campionato
+		
+		for (j in 1 : M) {
+				SC[i, j] <- equals(j, S[i]);
+				# SC mi serve per costruire la partizione e il numero di gruppi
+			}
+		
+	}
+
+# verosimiglianza
+	for(i in 1:n){
+		p[i] <- beta[1]*GENDER[i] + beta[2]*ESCS[i] + beta[3]*VGAMES[i] + beta[4]*INTSCI[i] + beta[5]*ANXIETY[i] + beta[6]*ISCEDO[i] + bb[SCHOOL[i]];
+		Y[i] ~ dnorm(p[i], 1);
+		}
+
+# Prior sugli effetti fissi 	      
+	for(i in 1:6){
+		mu[i] <- 0;
+		beta[i] ~ dnorm(mu[i], 0.001);
+	}
+
+
+	# New random SCHOOL
+	Snew ~ dcat(pi[]);
+	newschool <- theta[Snew];
+
+	# total clusters			
+	K <- sum(cl[])
+	for (j in 1 : M) {
+		sumSC[j] <- sum(SC[ , j])
+		cl[j] <- step(sumSC[j] -1)
+	}
+		
+}
