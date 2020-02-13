@@ -1,0 +1,29 @@
+model{
+
+	for(j in 1:ngr){
+	         beta0[1:2,j] ~ dmnorm(mean0, 1/5*Idp)
+	}
+
+	beta1 ~ dmnorm(zeroq, 1/5*Idq)
+	beta2 ~ dmnorm(zeroq, 1/5*Idq)
+
+	sigma1 ~ dunif(0,1)       ## residual std dev
+	sigma2 ~ dunif(0,1)
+	rho  ~ dunif(-1,1)
+
+	det = ((pow(sigma1 ,2))*(pow(sigma2 ,2)))*(1-pow(rho,2))
+	S[1,1] = (pow(sigma2 ,2))/det
+	S[2,2] = (pow(sigma1 ,2))/det
+	S[1,2] = -sigma1*sigma2*rho/det
+	S[2,1] = -sigma1*sigma2*rho/det
+
+	for(i in 1:N){   ## regression model for y
+
+	      	mu1[i] = beta0[1, gr[i]] + inprod(X[i,], beta1)
+		mu2[i] = beta0[2, gr[i]] + inprod(X[i,], beta2) 
+		mu[i,1] = mu1[i]
+		mu[i,2] = mu2[i]
+	   	Y[i,1:2] ~ dmnorm(mu[i,1:2], S)    
+	} 
+	 
+}
