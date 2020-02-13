@@ -1,7 +1,11 @@
+#CROSS VALIDATION PER SELEZIONARE IL MIGLIORE TRA I MODELLI COSTRUITI
+
+
+
 
 rm(list = ls())
 
-#cross validation tra modello sei e sette
+
 load('LM1.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 beta_mate_uno=(quantili[1:6,3])
@@ -18,7 +22,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('LM2.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 beta_mate=(quantili[1:9,3])
@@ -38,7 +42,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('LM3.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 beta_mate=(quantili[1:11,3])
@@ -64,7 +68,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('LM4.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 beta_mate=(quantili[1:13,3])
@@ -82,7 +86,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('LM5.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 beta_mate=(quantili[1:15,3])
@@ -102,7 +106,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('LM6.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 beta_mate=(quantili[1:17,3])
@@ -122,7 +126,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('LM7.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 beta_mate=(quantili[1:19,3])
@@ -154,7 +158,7 @@ plot(errori, col = "black", lwd = 5)
 
 
 
-#cross validation tra modello sei e sette
+
 load('LM4_no_mate.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 beta_mate=(quantili[1:12,3])
@@ -170,7 +174,7 @@ for (i in 1:N){
 }
 
 
-#cross validation tra modello sei e sette
+
 load('LM4_no_scie.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 beta_mate=(quantili[1:12,3])

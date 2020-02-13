@@ -1,3 +1,12 @@
+#costruzione dei modelli lineari. ogni modello contiene 2/3 covariate in più rispetto al precedente
+#i risultati verranno confrontati tramite cross-validation
+#il modello migliore sarà il quarto, poi togliendo dal quarto "learning time math" si vede che non cambia nulla, quindi si toglie anche lui
+
+
+
+
+
+
 rm(list = ls())
 library(rstan)
 library(rjags)
