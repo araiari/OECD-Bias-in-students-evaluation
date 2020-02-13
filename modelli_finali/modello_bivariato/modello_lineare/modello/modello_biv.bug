@@ -12,7 +12,7 @@ model{
 	sigma1 ~ dunif(0,120)       ## residual std dev
 	sigma2 ~ dunif(0,120)
 	rho  ~ dunif(-1,1)
-	det=((pow(sigma1 ,2))*(pow(sigma1 ,2)))-(sigma1*sigma2*rho*sigma1*sigma2*rho)
+	det=((pow(sigma1 ,2))*(pow(sigma2 ,2)))-(sigma1*sigma2*rho*sigma1*sigma2*rho)
 	S[1,1]=(pow(sigma2 ,2))/det
 	S[2,2]=(pow(sigma1 ,2))/det
 	S[1,2]=-sigma1*sigma2*rho/det
