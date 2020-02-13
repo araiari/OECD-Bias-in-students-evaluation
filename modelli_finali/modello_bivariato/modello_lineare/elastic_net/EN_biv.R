@@ -1,3 +1,9 @@
+#elastic net bivariata finalizzata a eliminare alcune covariate studente quando la risposta è bivariata
+
+
+
+
+
 rm(list = ls())
 library(rstan)
 library(rjags)
@@ -70,11 +76,10 @@ output <- coda.samples(model = model,
                        n.iter = nit,
                        thin = thin)
 save.image(file='risultato_EN_LM_biv.Rdata')
-#save(output,file='EN_jags1_a_normal.dat') 
 
-x11()
-plot(output,ask=T)
-dev.off()
+#x11()
+#plot(output,ask=T)
+#dev.off()
 
 
 quantili=as.matrix(summary(output)$quantiles)
