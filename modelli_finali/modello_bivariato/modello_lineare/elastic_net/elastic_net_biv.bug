@@ -20,7 +20,7 @@ aa2=a2+0.5
 	sigma2 ~ dunif(0,100)
 	#rho  ~ dunif(-1,1)
 	#S=Id
-	det=((pow(sigma1 ,2))*(pow(sigma1 ,2)))
+	det=((pow(sigma1 ,2))*(pow(sigma2 ,2)))
 	S[1,1]=(pow(sigma2 ,2))/det
 	S[2,2]=(pow(sigma1 ,2))/det
 	S[1,2]=0
