@@ -1,5 +1,9 @@
+#CROSS VALIDATION PER CONFRONTARE I MODELLI LINEARI BIVARIATI COSTRUITI
+
+
+
 rm(list = ls())
-#cross validation tra modello sei e sette
+
 load('risultato_modello_biv_sei.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 coeff_sei=(quantili[1:24,3])
@@ -19,7 +23,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('risultato_modello_biv_sette.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 coeff_sette=(quantili[1:28,3])
@@ -45,7 +49,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('risultato_modello_biv_nove.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 coeff_nove=(quantili[1:36,3])
@@ -64,7 +68,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('risultato_modello_biv_otto.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 coeff_otto=(quantili[1:32,3])
@@ -86,7 +90,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('risultato_modello_biv_due.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 coeff_due=(quantili[1:8,3])
@@ -105,7 +109,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('risultato_modello_biv_tre.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 coeff_tre=(quantili[1:12,3])
@@ -124,7 +128,7 @@ for (i in 1:N){
 
 
 
-#cross validation tra modello sei e sette
+
 load('risultato_modello_biv_quattro.rdata')
 quantili=as.matrix(summary(output)$quantiles)
 coeff_quattro=(quantili[1:16,3])
