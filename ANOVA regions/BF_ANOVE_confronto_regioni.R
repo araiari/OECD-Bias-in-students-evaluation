@@ -112,8 +112,8 @@ beta01_prior <- rmvnorm(N, mean= mean0, sigma= 5*I2)
 beta02_prior <- rmvnorm(N, mean= mean0, sigma= 5*I2)
 beta03_prior <- rmvnorm(N, mean= mean0, sigma= 5*I2)
 
-P0 <- sum(beta01_prior[,1] < beta03_prior[,1] & beta03_prior[,1] < beta02_prior[,1] & 
-            beta01_prior[,2] < beta03_prior[,2] & beta03_prior[,2] < beta02_prior[,2])/N
+P0 <- sum(beta01_prior[,1] < beta03_prior[,1] & beta01_prior[,1] < beta02_prior[,1] & 
+            beta01_prior[,2] < beta03_prior[,2] & beta01_prior[,2] < beta02_prior[,2])/N
 
 PriorOdd <- P0/(1-P0)
 
