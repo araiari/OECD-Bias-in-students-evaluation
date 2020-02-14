@@ -16,3 +16,6 @@ Al suo interno è presente l'analisi del modello univariato (risposta: voto_mate
 
 Nella cartella ANOVA sono contenuti gli script con cui si è analizzata la differenza dei voti 
 nelle diverse regioni (Campania, Tentino Alto Adige e Lombardia, le uniche di cui si aveva informazione) e i risutati dei test di ipotesi in merito.
+
+La cartella Clustering_GLMM contiene l'analisi di clusterizzazione delle scuole.
+La cartella Clustering contiene vecchi modelli/tentativi di clustering.
