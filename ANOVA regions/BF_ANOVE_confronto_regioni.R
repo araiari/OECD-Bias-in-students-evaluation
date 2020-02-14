@@ -84,8 +84,8 @@ rm(output)
 
 # MODELLO ANOVA1                                                          #############
 
-# H0: beta0_1 < beta0_3< beta0_2            H1: otherwise                 #############
-# Voglio vedere se il podio Lombardia-Trentino-Campania è vero
+# H0: beta0_1 < beta0_2, beta0_1 < beta0_2            H1: otherwise                 #############
+# voglio vedere se davvero la campania è la peggiore
 
 load("anova1_con_science_result.dat")
 N <- dim(output[[1]][,])[1]
@@ -124,8 +124,8 @@ beta01_post <- as.matrix(output[[1]][,1:2])
 beta02_post <- as.matrix(output[[1]][,3:4])
 beta03_post <- as.matrix(output[[1]][,5:6])
 
-P0_post <- sum(beta01_post[,1] < beta03_post[,1] & beta03_post[,1] < beta02_post[,1] & 
-                 beta01_post[,2] < beta03_post[,2] & beta03_post[,2] < beta02_post[,2])/N
+P0_post <- sum(beta01_post[,1] < beta03_post[,1] & beta01_post[,1] < beta02_post[,1] & 
+                 beta01_post[,2] < beta03_post[,2] & beta01_post[,2] < beta02_post[,2])/N
 
 PostOdd <- P0_post/(1-P0_post)
 
@@ -134,7 +134,6 @@ BF_anova1 <- PostOdd/PriorOdd
 BF_anova1 
 2*log(BF_anova1) # 6.7841 evidence in favour of H0
 
-# Nemmeno in questo caso si direbbe, eppure la lombardia supera il trentino.
 # La campania si conferma ultima
 
 
@@ -149,6 +148,9 @@ P0 <- sum(beta03_prior[,1] < beta02_prior[,1] & beta03_prior[,2] < beta02_prior[
 
 PriorOdd <- P0/(1-P0)
 
+beta02_post <- as.matrix(output[[1]][,3:4])
+beta03_post <- as.matrix(output[[1]][,5:6])
+
 P0_post <- sum( beta03_post[,1] < beta02_post[,1] & beta03_post[,2] < beta02_post[,2])/N
 
 PostOdd <- P0_post/(1-P0_post)
@@ -156,7 +158,7 @@ PostOdd <- P0_post/(1-P0_post)
 # BF
 BF_anova1_TL <- PostOdd/PriorOdd
 BF_anova1_TL
-2*log(BF_anova1_TL) # 2.15 weak evidence in favour of H0
+2*log(BF_anova1_TL) # 2.15045 weak evidence in favour of H0
 
 
 # # H0: mu_1 < mu_3< mu_2            H1: otherwise                         #############
