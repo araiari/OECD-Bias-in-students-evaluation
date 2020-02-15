@@ -12,7 +12,7 @@ Ogni analisi è stata trattata con un approccio bayesiano.
 La cartella dataset contiene i diversi dataset utilizzati.
 
 Per i modelli lineari guardare solo la cartella modelli_finali, il resto sono codici/risultati vecchi.
-Al suo interno è presente l'analisi del modello univariato (risposta: voto_matematica) e del modello bivariato (risposta: voto_matematica, voto_reading). Ogni sottocartella contiene un file read.me che descrive il contenuto della cartella stessa.
+Al suo interno è presente l'analisi del modello univariato (risposta: voto_matematica) e del modello bivariato (risposta: voto_matematica, voto_reading). Ogni sottocartella contiene un file read.me che descrive il contenuto della cartella stessa. E' inoltre presente un pdf con i modelli implementati.
 
 Nella cartella ANOVA sono contenuti gli script con cui si è analizzata la differenza dei voti 
 nelle diverse regioni (Campania, Tentino Alto Adige e Lombardia, le uniche di cui si aveva informazione) e i risutati dei test di ipotesi in merito.
