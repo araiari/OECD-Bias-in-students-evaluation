@@ -6,3 +6,5 @@ In entrambi i casi si è proceduto per gradi:
 4) Costruzione di modelli gerarchici con le covariate studente/scuola selezionate in precedenza
 
 Sono presenti tutti i workspace dei risultati ottenuti  (ad esclusione di quelli troppo pesanti per essere caricati)
+
+Il pdf "modelli" contiene i diversi modelli implementati.
