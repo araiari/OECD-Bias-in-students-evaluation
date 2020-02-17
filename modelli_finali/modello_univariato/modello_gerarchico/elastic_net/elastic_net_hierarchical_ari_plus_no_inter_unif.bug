@@ -1,0 +1,38 @@
+model { 
+
+# variabile risposta
+for (i in 1:N){
+	#j = g[i] 
+		#il vettore g mi dice a quale scuola appartiene lo studente i (valori ammissibili di g[1] sono 1:M)
+	mu[i] =gamma0[ g[i] ] + inprod(X[i,], theta)+ inprod(Z[i,], gamma[g[i],])  
+		##X[i] è il vettore di covariate relative alla scuola, Z[i] è relativo allo studente 
+	Y[i] ~ dnorm(mu[i], prec)
+} 
+
+# aggiornamento dei parametri
+prec ~ dgamma(2,10)
+
+
+
+for(j in 1:M){
+	gamma0[j] ~ dnorm(513, 1/2500)
+}
+
+
+for ( i in 1:v){
+	prec_gamma[i]~ dunif(0,100)
+	for(j in 1:M){
+		gamma[j,i] ~ dnorm(0, 1/(pow(prec_gamma[i],2)))
+	}
+}
+
+a1 ~ dexp(0.1) ##valutare se usare ancora qualche trucco per stabilizzare il tutto
+
+a2 ~ dexp(0.1)
+aa1=a1+0.5
+aa2=a2+0.5
+for (j in 1:p) 	{	
+	tau[j] ~ dgamma(0.5, (pow(aa1,2)) / (8*aa2) ) T(1, )##  // truncated distribution!!! (see the manual)	
+	theta[j] ~ dnorm(0, 1/((tau[j]-1)/(tau[j]*aa2)))
+}
+}
