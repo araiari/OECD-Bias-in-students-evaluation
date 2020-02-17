@@ -68,7 +68,7 @@ load('modello_pred_output.dat')
 
 niter <- 2500
 
-i <- 1 #seleziono studente
+i <- 10 #seleziono studente
 
 Xnew <- as.numeric(dati[i,3:13]) # cov dello studente i scelto
 Znew <- as.numeric(dati[i,14]) 
@@ -91,30 +91,42 @@ colnames(gamma2) <- c('gamma2_1','gamma2_2','gamma2_3','gamma2_4','gamma2_5','ga
 beta1 <- as.numeric(output[[1]][,1])
 beta2 <- as.numeric(output[[1]][,2])
 
+sigma1 <- output[[1]][,'sigma1']
+sigma2 <- output[[1]][,'sigma2']
+rho <- output[[1]][,'rho']
+
 rm(output)
 
-prod_X_gamma1 <- prod_X_gamma2 <- rep(0, niter )
-for (j in 1:v){
-  for (i in 1:niter) {
-    prod_X_gamma1[i] <- prod_X_gamma1[i] + (Xnew[j]*gamma1[i,j])
-    prod_X_gamma2[i] <- prod_X_gamma2[i] + (Xnew[j]*gamma2[i,j])
-    }
-  print(j)
+library(mvtnorm)
+Y_pred <- matrix(0,niter,2)
+for (j in 1:niter){
+  
+  Y_media <- c(gamma0[j,1] + Znew*beta1[j] + sum(Xnew*gamma1[j,]), 
+              gamma0[j,2] + Znew*beta2[j] + sum(Xnew*gamma2[j,]) )
+  Sigma <- rbind( c(sigma1[j]^2, rho[j]*sigma2[j]*sigma1[j]),
+                  c(rho[j]*sigma2[j]*sigma1[j], sigma2[j]^2))
+  Y_pred[j,1:2] <- rmvnorm(1,mean=Y_media,sigma = Sigma)
+  
 }
 
-Y <- cbind(gamma0[,1], gamma0[,2])
-Y[,1] <- gamma0[,1] + Znew*beta1 + prod_X_gamma1
-Y[,2] <- gamma0[,2] + Znew*beta2 + prod_X_gamma2
-Y <- data.frame(Y); colnames(Y) <- c('math','read')
+# credible intervals 95%
+media <- colMeans(Y_pred); media
+c(dati$pv5math[i], dati$pv5read[i])
+
+CI <- rbind(CI_math=c(quantile(Y_pred[,1], 0.05),quantile(Y_pred[,1], 0.95)),
+  CI_read = c(quantile(Y_pred[,2], 0.05), quantile(Y_pred[,2], 0.95)) ); CI
 
 # istogramma e posterior density
-x11(); par(mfrow=c(1,2)); hist(Y$math, main='math',
-    xlab='evaluation',freq= F); hist(Y$read, main='read', xlab='evaluation',freq=F)
+x11(); par(mfrow=c(1,2));hist(Y_pred[,1], main = 'math', xlab='sampled scores',
+   prob=T); abline(v=Y[i,1], col='red'); abline(v=CI[1,], lty=2,
+  col='red'); hist(Y_pred[,2], main='read', xlab='sampled scores',prob=T); abline(v=Y[i,2],
+   col='blue'); abline(v=CI[2,], lty=2,col='blue')
+
 
 library(ggplot2)
 Yplot <- data.frame(  
-            eval=c(Y$math,Y$read), 
-            subject=factor(c(rep('math',niter),rep('read',niter))) ) 
+  eval=c(Y_pred[,1],Y_pred[,2]), 
+  subject=factor(c(rep('math',niter),rep('read',niter))) ) 
 library(plyr)
 mu <- ddply(Yplot, "subject", summarise, grp.mean=mean(eval))
 CI <- ddply(Yplot,"subject",summarize, CI=c(quantile(eval,0.025),quantile(eval,0.975)) )
@@ -128,13 +140,26 @@ x11(); ggplot(Yplot, aes(x=eval, fill=subject, color=subject)) + #plot delle pos
   theme(legend.position="top")+
   ggtitle('pv5math for student i')+xlab('evaluation')+ylab('density')
 
+# LPML 
 
-# credible intervals 95%
-media <- colMeans(Y); media
+library(mvtnorm)
+CPO <- numeric(dim(Y)[1])
 
-CI <- rbind(CI_math=c(quantile(Y$math, 0.025),quantile(Y$math, 0.975)),
-  CI_read = c(quantile(Y$read, 0.025), quantile(Y$read, 0.975)) ); CI
-
+for (l in 1:200){
+for (j in 1:1000){
+  
+  Y_media <- c(gamma0[j,1] + Znew*beta1[j] + sum(Xnew*gamma1[j,]), 
+               gamma0[j,2] + Znew*beta2[j] + sum(Xnew*gamma2[j,]) )
+  Sigma <- rbind( c(sigma1[j]^2, rho[j]*sigma2[j]*sigma1[j]),
+                  c(rho[j]*sigma2[j]*sigma1[j], sigma2[j]^2))
+  #Y_pred[j,1:2] <- rmvnorm(1,mean=Y_media,sigma = Sigma)
+  CPO[l] <- CPO[l] + 1/dmvnorm(Y[l,], mean = Y_media, sigma= Sigma)
+  }
+  CPO[l] <- 1/( CPO[l]/1000 )
+  print(l)
+  }
+LPML <- prod((CPO))
+LPML
 
 # 2) new student from new school ---------------------------------
 rm(list=ls())
@@ -143,8 +168,7 @@ load('modello_pred_output.dat')
 
 niter <- 2500
 
-runif(1, 0,9904)
-i <- 1 #seleziono studente
+i <- 10 #seleziono studente
 
 Xnew <- as.numeric(dati[i,3:13]) # cov dello studente i scelto
 Znew <- as.numeric(dati[i,14]) 
@@ -156,40 +180,49 @@ tau0 <- as.numeric(output[[1]][, 2+2*M+2*M*v+4])
 tau1 <- as.matrix(output[[1]][,2+2*M+2*M*v+4+1:v])
 tau2 <- as.matrix(output[[1]][,2+2*M+2*M*v+4+v+1:v])
 
+sigma1 <- output[[1]][,'sigma1']
+sigma2 <- output[[1]][,'sigma2']
+rho <- output[[1]][,'rho']
+
 rm(output)
 
-gamma0 <- matrix(0, nrow=niter, ncol=2)
-gamma1 <- gamma2 <- matrix(0, nrow=niter, ncol=v)
-cinc <- c(500,500);# zerov <- rep(0,v)
+cinc <- colMeans(Y);# zerov <- rep(0,v)
 I <- diag(c(1,1)); #Iv <- diag(rep(1,v))
+gamma2 <- gamma1 <- numeric(v)
+Y_pred <- matrix(0,niter,2)
 
 set.seed(1)
 library(mvtnorm) #per gaussiane random
-for (i in 1:niter){ # campiono nuovi valori di gamma0
-  gamma0[i,1:2] <- rmvnorm(1,mean=cinc, sigma=I*(1/tau0[i]))
-  for (j in 1:v){
-    gamma1[i,j] <- rnorm(1,mean=0, sd=sqrt(1/tau1[i]))
-    gamma2[i,j] <- rnorm(1,mean=0, sd=sqrt(1/tau2[i]))
+for (j in 1:niter){ # campiono nuovi valori di gamma0
+  gamma0 <- rmvnorm(1,mean=cinc, sigma=I*(1/tau0[j]))
+  for (k in 1:v){
+    gamma1[k] <- rnorm(1,mean=0, sd=sqrt(1/tau1[j]))
+    gamma2[k] <- rnorm(1,mean=0, sd=sqrt(1/tau2[j]))
   }
+
+  Y_media <- c(gamma0[1] + Znew*beta1[j] + sum(Xnew*gamma1), 
+               gamma0[2] + Znew*beta2[j] + sum(Xnew*gamma2) )
+  Sigma <- rbind( c(sigma1[j]^2, rho[j]*sigma2[j]*sigma1[j]),
+                  c(rho[j]*sigma2[j]*sigma1[j], sigma2[j]^2))
+  Y_pred[j,1:2] <- rmvnorm(1,mean=Y_media,sigma = Sigma)
+  
 }
 
-prod_X_gamma1 <- prod_X_gamma2 <- rep(0, niter )
-for (j in 1:v){
-  for (i in 1:niter) {
-    prod_X_gamma1[i] <- prod_X_gamma1[i] + (Xnew[j]*gamma1[i,j])
-    prod_X_gamma2[i] <- prod_X_gamma2[i] + (Xnew[j]*gamma2[i,j])
-  }
-  print(j)
-}
 
-Y <- cbind(gamma0[,1], gamma0[,2])
-Y[,1] <- gamma0[,1] + Znew*beta1 + prod_X_gamma1
-Y[,2] <- gamma0[,2] + Znew*beta2 + prod_X_gamma2
-Y <- data.frame(Y); colnames(Y) <- c('math','read')
+# credible intervals 90%
+media <- colMeans(Y_pred); media
+c(dati$pv5math[i], dati$pv5read[i])
+
+CI <- rbind(CI_math=c(quantile(Y_pred[,1], 0.05),quantile(Y_pred[,1], 0.95)),
+            CI_read = c(quantile(Y_pred[,2], 0.05), quantile(Y_pred[,2], 0.95)) ); CI
+
 
 # istogramma e predictive density
-x11(); par(mfrow=c(1,2)); hist(Y$math, main='math',
-                               xlab='evaluation',freq= F); hist(Y$read, main='read', xlab='evaluation',freq=F)
+x11(); par(mfrow=c(1,2)); hist(Y_pred[,1], main='math', xlab='evaluation', probability = T);
+abline(v=Y[i,1],col='red'); abline(v=CI[1,],col='red',lty=2)
+hist(Y_pred[,2], main='read', xlab='evaluation',probability = T);
+abline(v=Y[i,2],col='blue');abline(v=CI[1,],col='blue',lty=2)
+
 library(ggplot2)
 Yplot <- data.frame(  
   eval=c(Y$math,Y$read), 
@@ -232,13 +265,3 @@ x11(); ggplot(Yplot, aes(x=Y.read)) + #plot delle posterior distr. dei theta
   xlab('evaluation')+ylab('density')+
   theme_minimal()
 
-
-
-# credible intervals 95%
-media <- colMeans(Y); media
-colMeans(dati[,15:16])
-
-CI <- rbind(CI_math=c(quantile(Y$math, 0.025),quantile(Y$math, 0.975)),
-            CI_read = c(quantile(Y$read, 0.025), quantile(Y$read, 0.975)) ); CI
-rbind(CI_math=c(quantile(dati$pv5math, 0.025),quantile(dati$pv5math, 0.975)),
-            CI_read = c(quantile(dati$pv5read, 0.025), quantile(dati$pv5read, 0.975)) )
