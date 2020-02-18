@@ -1,3 +1,2 @@
 Questa cartella conteine l'EN finalizzata a selezionare le covariate scuola.
 Le covaraite studente sono o nessuna o 13 (13 come le covariate fissate al punto 1)
-I risultati dicono di tenere solo ISCED_ORIENT
