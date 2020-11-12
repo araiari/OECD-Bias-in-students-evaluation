@@ -20,7 +20,7 @@ nelle diverse regioni (Campania, Tentino Alto Adige e Lombardia, le uniche di cu
 
 La cartella Clustering_GLMM contiene l'analisi di clusterizzazione delle scuole.
 
-Per una presentazione dei modelli e dei risultati, fare riferimento a ProjectPresentation_0 (esplorazione iniziale sui dati), ProjectPresentation_1 (primi risultati di modelli lineari) e ProjectPresentation_2 (presentazione finale complessiva).
+Per una presentazione dei modelli e dei risultati, fare riferimento a ProjectPresentation_0 (esplorazione iniziale sui dati) e ProjectPresentation_2 (presentazione finale complessiva). Un report più dettagliato è contenuto nel file Report.pdf
 
 -------------------------------------------------------------------
 
@@ -42,4 +42,4 @@ Folder ANOVA contains the scripts to analyse the difference of evaluation on thr
 
 Folder Clustering_GLMM contains the results of the clustering over the schools.
 
-For a presentation of models and results, refer to the files ProjectPresentation_0 (exploratory analysis), ProjectPresentation_1 (first results on linear models) and ProjectPresentation_2 (final presentation with all the results).
+For a presentation of models and results, refer to the files ProjectPresentation_0 (exploratory analysis) and ProjectPresentation_2 (final presentation with all the results). A more detailed report is in the file Report.pdf
