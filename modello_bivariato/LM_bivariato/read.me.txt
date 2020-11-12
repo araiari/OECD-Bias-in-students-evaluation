@@ -1,5 +1,0 @@
-Questa cartella contiene il modello lineare con risposta bivariata (voto mate, voto reading).
-Sono state considerate solo le covariate relative agli studenti selezionare tramite EN
-
-Ogni modello ha due covaraite in più rispetto al precedente.
-Il modello migliore è il sei/sette
