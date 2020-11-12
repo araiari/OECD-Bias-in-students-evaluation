@@ -10,3 +10,18 @@ I files modello_biv_anova1.bug e modello_biv_anova2.bug contengono i files utili
 
 Nel file BF_ANOVA_confronto_regioni.R vengono fatti alcuni testi di ipotesi per "ordinare" le regioni
 dalla migliore alla peggiore in base ai voti ottenuto dagli studenti. 
+
+---------------------------------------------------------------------------------------------
+
+This folder holds all the script to analyse the difference of the students' evaluation between different regions 
+and the results of the relates hypothesis tests.
+
+We always considered the bivariate model with bidimensional response [math evaluation, reading evaluation].
+We used JAGS to sample from the model.
+
+Two additional ANOVA models were built. Files ANOVA1.R and ANOVA2.R contain the description of the models 
+and the code to sample with JAGS and analyze posterior distribution. 
+Files modello_biv_anova1.bug and modello_biv_anova2.bug were used by JAGS in the previous scripts.
+
+In BF_ANOVA_confronto_regioni.R we performed some hypothesis test, aiming at ordering the regions 
+from the best to the worst.
