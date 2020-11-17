@@ -1,6 +1,6 @@
 # Pisa-BurzacchiFalcoTeodori
 L'obiettivo del progetto è capire quali sono i fattori che impattano maggiormente sui voti degli studenti italiani.
-A partire dai dati dell'OCSE, che forniscono numerose caratterstiche sugli studenti e sulle scuole da loro frequentate,
+A partire dai dati dell'OECD, che forniscono numerose caratterstiche sugli studenti e sulle scuole da loro frequentate,
 si vuole costruire un modello gerarchico che abbia come risposta i voti degli studenti.
 Ogni analisi è stata trattata con un approccio bayesiano.
 Data la numerosità delle covariate presenti (più di 1000) si è prima proceduto con una scrematura iniziale.
@@ -25,7 +25,7 @@ Per una presentazione dei modelli e dei risultati, fare riferimento a ProjectPre
 -------------------------------------------------------------------
 
 The aim of the project is to understand which factors influence italian students' evaluations.
-The OCSE dataset contains many information about the students and their schools. 
+The OECD dataset contains many information about the students and their schools. 
 A Bayesian approach has been used in every analysis.
 Starting from it, a hierarchical model was built to predict the students' evaluations.
 Due to the large amount of covariates (more than 1000), we firsly proceed with an initial selection.
