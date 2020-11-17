@@ -1,4 +1,4 @@
-# Pisa-BurzacchiFalcoTeodori
+# Bias in students evaluation
 L'obiettivo del progetto è capire quali sono i fattori che impattano maggiormente sui voti degli studenti italiani.
 A partire dai dati dell'OECD, che forniscono numerose caratterstiche sugli studenti e sulle scuole da loro frequentate,
 si vuole costruire un modello gerarchico che abbia come risposta i voti degli studenti.
