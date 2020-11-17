@@ -16,7 +16,7 @@ data_tidy.csv : in this dataset we selected only some features about the student
 The selection criterion was intuition: we selected the features that seemed to be more interesting for our analysis.
 data_tidy_NA.csv : reduction of data_tidy.csv without the observations with at least one missing value.
 
-dati_reg.csv : used to fit the linear models, contains all the basic information about the students (gender, age, ...), 
+dati_reg.csv : used to fit univariate linear models, contains all the basic information about the students (gender, age, ...), 
 about their habits and their socio-economic status. We deleted all the observations with at least a missing value.
 
-data_hierarchical_WAIC.csv : used to fit hierarchical models, contains both the relevant student features and the school features.
+data_hierarchical_WAIC.csv : used to fit univariate hierarchical models, contains both the relevant student features and the school features.
